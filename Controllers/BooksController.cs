@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.Extensions.Logging;
 using perpusapi.DataModel;
 using perpusapi.Services;
@@ -19,6 +20,7 @@ namespace perpusapi.Controllers
         }
 
         [HttpGet]
+        [EnableCors("MyPolicy")]
         [Route("api/books")]
         public IActionResult GetBooks()
         {
