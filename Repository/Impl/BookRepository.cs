@@ -15,7 +15,7 @@ namespace perpusapi.Repository.Impl {
 
         public IEnumerable<Book> GetBooks()
         {
-            var books = _databaseConnection.dbConnection.Query<Book>("select Id, Title, Author, PublishedDate, CreatedDate from Book");
+            var books = _databaseConnection.dbConnection.Query<Book>("select Id, Title, Author, PublishedDate, CreatedDate from Book order by id desc");
             return books;
         }
 
