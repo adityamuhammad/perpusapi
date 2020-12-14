@@ -3,7 +3,8 @@ using perpusapi.DataModel;
 
 namespace perpusapi.Repository
 {
-    public interface IBookRepository {
+    public interface IBookRepository 
+    {
         IEnumerable<Book> GetBooks();
         Book GetBook(int id);
         void AddBook(Book book);

@@ -39,7 +39,8 @@ namespace perpusapi.Controllers
         public IActionResult AddBook([FromBody]Book book)
         {
             var validator = new BookValidator();
-            if(validator.Validate(book).IsValid){
+            if(validator.Validate(book).IsValid)
+            {
                 _bookService.AddBook(book);
                 return Ok();
             }
@@ -51,7 +52,8 @@ namespace perpusapi.Controllers
         public IActionResult UpdateBook([FromBody]Book book, int id)
         {
             var validator = new BookValidator();
-            if(validator.Validate(book).IsValid){
+            if(validator.Validate(book).IsValid)
+            {
                 book.Id = id;
                 _bookService.UpdateBook(book);
                 return Ok();

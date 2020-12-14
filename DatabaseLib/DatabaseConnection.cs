@@ -2,12 +2,14 @@ using System.Data;
 
 namespace perpusapi.DatabaseLib
 {
-    public class DatabaseConnection {
-        public DatabaseConnection(IDbConnection dbConnection){
-            this.dbConnection = dbConnection;
+    public class DatabaseConnection 
+    {
+        public DatabaseConnection(IDbConnection connection)
+        {
+            this.connection = connection;
         }
 
-        internal IDbConnection dbConnection {get;}
+        internal IDbConnection connection { get; }
     }
 
 }

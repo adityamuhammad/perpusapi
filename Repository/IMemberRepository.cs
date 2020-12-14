@@ -3,7 +3,8 @@ using perpusapi.DataModel;
 
 namespace perpusapi.Repository
 {
-    public interface IMemberRepository {
+    public interface IMemberRepository 
+    {
         IEnumerable<Member> GetMembers();
         Member GetMember(int id);
         void AddMember(Member member);
