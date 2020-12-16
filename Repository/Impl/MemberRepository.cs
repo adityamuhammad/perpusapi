@@ -32,7 +32,7 @@ namespace perpusapi.Repository.Impl
 
         public IEnumerable<Member> GetMembers()
         {
-            var members = _databaseConnection.connection.Query<Member>("select Id, Name, Address, PhoneNumber from Member");
+            var members = _databaseConnection.connection.Query<Member>("select top 10 Id, Name, Address, PhoneNumber from Member");
             return members;
         }
 
