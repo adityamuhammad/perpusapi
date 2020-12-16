@@ -1,6 +1,7 @@
 using System;
 using Dapper;
 using perpusapi.DatabaseLib;
+using perpusapi.DataModel;
 
 namespace perpusapi.Repository.Impl
 {
@@ -12,9 +13,9 @@ namespace perpusapi.Repository.Impl
             _databaseConnection = databaseConnection;
             
         }
-        public void AddBorrowBook(int bookId, int memberId)
+        public void AddBorrowBook(BookMember bookMember)
         {
-            _databaseConnection.connection.Execute("insert into BorrowBook(BookId, MemberId, BorrowDate) values (@BookId, @MemberId, @BorrowDate)", new {BookId = bookId, MemberId = memberId, BorrowDate= DateTime.Now});
+            _databaseConnection.connection.Execute("insert into BorrowBook(BookId, MemberId, BorrowDate) values (@BookId, @MemberId, @BorrowDate)", bookMember);
         }
 
         public void UpdateReturnDate(int borrowBookId)

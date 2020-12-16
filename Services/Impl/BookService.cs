@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using perpusapi.DataModel;
 using perpusapi.Repository;
 
-namespace perpusapi.Services.Impl {
+namespace perpusapi.Services.Impl 
+{
     public class BookService : IBookService
     {
         private readonly IBookRepository _bookRepository;
         private readonly IBookMemberRepository _bookMemberRepository;
+
         public BookService(IBookRepository bookRepository, IBookMemberRepository bookMemberRepository)
         {
             _bookRepository = bookRepository;
@@ -18,9 +20,9 @@ namespace perpusapi.Services.Impl {
             _bookRepository.AddBook(book);
         }
 
-        public void BorrowBook(int bookId, int memberId)
+        public void BorrowBook(BookMember bookMember)
         {
-            _bookMemberRepository.AddBorrowBook(bookId,memberId);
+            _bookMemberRepository.AddBorrowBook(bookMember);
         }
 
         public void DeleteBook(int id)

@@ -1,8 +1,10 @@
+using perpusapi.DataModel;
+
 namespace perpusapi.Repository
 {
     public interface IBookMemberRepository
     {
-        void AddBorrowBook(int bookId, int memberId);
+        void AddBorrowBook(BookMember bookMember);
         void UpdateReturnDate(int borrowBookId);
     }
 }

@@ -1,9 +1,10 @@
 using FluentValidation;
 using perpusapi.DataModel;
 
-namespace perpusapi.Validator {
-    public class BookValidator : AbstractValidator<Book> {
-
+namespace perpusapi.Validator 
+{
+    public class BookValidator : AbstractValidator<Book> 
+    {
         public BookValidator()
         {
             RuleFor(m => m.Title).NotEmpty();

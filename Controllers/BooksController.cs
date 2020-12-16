@@ -31,7 +31,11 @@ namespace perpusapi.Controllers
         [Route("api/books/{id}")]
         public IActionResult GetBook(int id)
         {
-            return Ok(_bookService.GetBook(id));
+            var book = _bookService.GetBook(id);
+            if (book != null){
+                return Ok(book);
+            }
+            return NotFound();
         }
 
         [HttpPost]
@@ -70,11 +74,16 @@ namespace perpusapi.Controllers
         }
 
         [HttpPost]
-        [Route("api/books/{bookId}/borrow/")]
-        public IActionResult BorrowBook(int bookId, [FromBody]Member member)
+        [Route("api/books/borrow/")]
+        public IActionResult BorrowBook([FromBody]BookMember bookMember)
         {
-            _bookService.BorrowBook(bookId, member.Id);
-            return Ok();
+            var validator = new BookMemberValidator();
+            if(validator.Validate(bookMember).IsValid)
+            {
+                _bookService.BorrowBook(bookMember);
+                return Ok();
+            }
+            return BadRequest();
         }
 
         [HttpPost]
