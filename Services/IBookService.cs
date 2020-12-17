@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using perpusapi.DataModel;
+using perpusapi.Dto;
 
 namespace perpusapi.Services 
 {
@@ -10,6 +11,7 @@ namespace perpusapi.Services
         void AddBook(Book book);
         void UpdateBook(Book book);
         void DeleteBook(int id);
+        IEnumerable<BorrowingDto> GetBorrowingBooks();
         void BorrowBook(BookMember bookMember);
         void ReturnBook(int borrowBookId);
     }

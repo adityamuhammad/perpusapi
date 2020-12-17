@@ -73,6 +73,14 @@ namespace perpusapi.Controllers
             return NoContent();
         }
 
+        [HttpGet]
+        [Route("api/books/borrowing/")]
+        public IActionResult BorrowingData()
+        {
+            var borrowings = _bookService.GetBorrowingBooks();
+            return Ok(borrowings);
+        }
+
         [HttpPost]
         [Route("api/books/borrow/")]
         public IActionResult BorrowBook([FromBody]BookMember bookMember)

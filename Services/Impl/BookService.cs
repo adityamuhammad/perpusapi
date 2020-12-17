@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using perpusapi.DataModel;
 using perpusapi.Repository;
+using perpusapi.Dto;
 
 namespace perpusapi.Services.Impl 
 {
@@ -38,6 +39,11 @@ namespace perpusapi.Services.Impl
         public IEnumerable<Book> GetBooks()
         {
             return _bookRepository.GetBooks();
+        }
+
+        public IEnumerable<BorrowingDto> GetBorrowingBooks()
+        {
+            return _bookMemberRepository.GetBorrowingBooks();
         }
 
         public void ReturnBook(int borrowBookId)

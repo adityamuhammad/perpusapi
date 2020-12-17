@@ -7,9 +7,10 @@ namespace perpusapi.Services.Impl
     public class MemberService : IMemberService 
     {
         private readonly IMemberRepository _memberRepository;
-        public MemberService(IMemberRepository memberRepository){
-            _memberRepository = memberRepository;
 
+        public MemberService(IMemberRepository memberRepository)
+        {
+            _memberRepository = memberRepository;
         }
 
         public void AddMember(Member member)
