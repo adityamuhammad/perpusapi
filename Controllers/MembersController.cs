@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using perpusapi.DataModel;
 using perpusapi.Services;
 using perpusapi.Validator;
+using perpusapi.ParamFilter;
 
 namespace perpusapi.Controllers
 {
@@ -20,16 +21,18 @@ namespace perpusapi.Controllers
 
         [HttpGet]
         [Route("api/members")]
-        public IActionResult GetMembers()
+        public IActionResult GetMembers([FromQuery]Filter filter)
         {
-            return Ok(_memberService.GetMembers());
+            var members =_memberService.GetMembers(filter); 
+            return Ok(members);
         }
 
         [HttpGet]
         [Route("api/members/{id}")]
         public IActionResult GetMember(int id)
         {
-            return Ok(_memberService.GetMember(id));
+            var member = _memberService.GetMember(id);
+            return Ok(member);
         }
 
         [HttpPost]
@@ -37,7 +40,8 @@ namespace perpusapi.Controllers
         public IActionResult AddMember([FromBody]Member member)
         {
             var validator = new MemberValidator();
-            if(validator.Validate(member).IsValid){
+            if(validator.Validate(member).IsValid)
+            {
                 _memberService.AddMember(member);
                 return Ok();
             }
@@ -49,7 +53,8 @@ namespace perpusapi.Controllers
         public IActionResult UpdateMember([FromBody]Member member, int id)
         {
             var validator = new MemberValidator();
-            if(validator.Validate(member).IsValid){
+            if(validator.Validate(member).IsValid)
+            {
                 member.Id = id;
                 _memberService.UpdateMember(member);
                 return Ok();

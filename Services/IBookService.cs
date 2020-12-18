@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using perpusapi.DataModel;
 using perpusapi.Dto;
+using perpusapi.ParamFilter;
 
 namespace perpusapi.Services 
 {
     public interface IBookService 
     {
-        IEnumerable<Book> GetBooks();
+        IEnumerable<Book> GetBooks(Filter filter);
         Book GetBook(int id);
         void AddBook(Book book);
         void UpdateBook(Book book);

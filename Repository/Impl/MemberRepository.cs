@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Dapper;
 using perpusapi.DatabaseLib;
 using perpusapi.DataModel;
+using perpusapi.ParamFilter;
 
 namespace perpusapi.Repository.Impl 
 {
@@ -39,11 +40,18 @@ namespace perpusapi.Repository.Impl
             return member;
         }
 
-        public IEnumerable<Member> GetMembers()
+        public IEnumerable<Member> GetMembers(Filter filter)
         {
-            var members = _databaseConnection.connection.Query<Member>(@"
+            var filtering = "";
+            if (!string.IsNullOrEmpty(filter.Search))
+            {
+                filtering += @" where Name like concat(@search, '%') ";
+            }
+            var members = _databaseConnection.connection.Query<Member>($@"
                 select top 10 Id, Name, Address, PhoneNumber 
-                from Member");
+                from Member
+                {filtering}
+                order by Id desc", filter);
             return members;
         }
 

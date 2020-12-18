@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using perpusapi.DataModel;
 using perpusapi.Services;
 using perpusapi.Validator;
+using perpusapi.ParamFilter;
 
 namespace perpusapi.Controllers
 {
@@ -22,9 +23,10 @@ namespace perpusapi.Controllers
         [HttpGet]
         [EnableCors("MyPolicy")]
         [Route("api/books")]
-        public IActionResult GetBooks()
+        public IActionResult GetBooks([FromQuery]Filter filter)
         {
-            return Ok(_bookService.GetBooks());
+            var books =_bookService.GetBooks(filter); 
+            return Ok(books);
         }
 
         [HttpGet]

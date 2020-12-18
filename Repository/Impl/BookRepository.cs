@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Dapper;
 using perpusapi.DatabaseLib;
 using perpusapi.DataModel;
+using perpusapi.ParamFilter;
 
 namespace perpusapi.Repository.Impl 
 {
@@ -14,13 +15,20 @@ namespace perpusapi.Repository.Impl
             _databaseConnection = databaseConnection;
         }
 
-        public IEnumerable<Book> GetBooks()
+        public IEnumerable<Book> GetBooks(Filter filter)
         {
-            var books = _databaseConnection.connection.Query<Book>(@"
+            var filtering = "";
+            if (!string.IsNullOrEmpty(filter.Search))
+            {
+                filtering += " where Title like concat(@search, '%') or Author like concat(@search, '%') ";
+            }
+            var books = _databaseConnection.connection.Query<Book>($@"
                 select top 10 
                     Id, Title, Author, 
                     PublishedDate, CreatedDate 
-                from Book order by id desc");
+                from Book 
+                {filtering}
+                order by id desc", filter);
             return books;
         }
 

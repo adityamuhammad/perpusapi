@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using perpusapi.DataModel;
 using perpusapi.Repository;
+using perpusapi.ParamFilter;
 
 namespace perpusapi.Services.Impl 
 {
@@ -28,9 +29,9 @@ namespace perpusapi.Services.Impl
             return _memberRepository.GetMember(id);
         }
 
-        public IEnumerable<Member> GetMembers()
+        public IEnumerable<Member> GetMembers(Filter filter)
         {
-            return _memberRepository.GetMembers();
+            return _memberRepository.GetMembers(filter);
         }
 
         public void UpdateMember(Member member)

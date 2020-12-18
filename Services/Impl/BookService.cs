@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using perpusapi.DataModel;
 using perpusapi.Repository;
 using perpusapi.Dto;
+using perpusapi.ParamFilter;
 
 namespace perpusapi.Services.Impl 
 {
@@ -36,9 +37,9 @@ namespace perpusapi.Services.Impl
             return _bookRepository.GetBook(id);
         }
 
-        public IEnumerable<Book> GetBooks()
+        public IEnumerable<Book> GetBooks(Filter filter)
         {
-            return _bookRepository.GetBooks();
+            return _bookRepository.GetBooks(filter);
         }
 
         public IEnumerable<BorrowingDto> GetBorrowingBooks()
