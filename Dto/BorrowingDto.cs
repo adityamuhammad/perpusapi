@@ -11,6 +11,6 @@ namespace perpusapi.Dto
         public string BorrowerAddress { get; set; }
         public string BorrowerPhoneNumber { get; set; }
         public DateTime BorrowDate { get; set; }
-        public DateTime ReturnDate { get; set; }
+        public DateTime? ReturnDate {get; set; }
     }
 }
