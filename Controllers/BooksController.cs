@@ -77,9 +77,9 @@ namespace perpusapi.Controllers
 
         [HttpGet]
         [Route("api/books/borrowing/")]
-        public IActionResult BorrowingData()
+        public IActionResult BorrowingData([FromQuery]Filter filter)
         {
-            var borrowings = _bookService.GetBorrowingBooks();
+            var borrowings = _bookService.GetBorrowingBooks(filter);
             return Ok(borrowings);
         }
 

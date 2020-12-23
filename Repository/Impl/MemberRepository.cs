@@ -48,10 +48,12 @@ namespace perpusapi.Repository.Impl
                 filtering += @" where Name like concat(@search, '%') ";
             }
             var members = _databaseConnection.connection.Query<Member>($@"
-                select top 10 Id, Name, Address, PhoneNumber 
+                select Id, Name, Address, PhoneNumber 
                 from Member
                 {filtering}
-                order by Id desc", filter);
+                order by Id desc
+                offset ((@Page-1) * @NumOfRows) rows fetch first @NumOfRows rows only
+                ", filter);
             return members;
         }
 

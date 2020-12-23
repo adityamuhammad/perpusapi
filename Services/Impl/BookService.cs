@@ -42,9 +42,9 @@ namespace perpusapi.Services.Impl
             return _bookRepository.GetBooks(filter);
         }
 
-        public IEnumerable<BorrowingDto> GetBorrowingBooks()
+        public IEnumerable<BorrowingDto> GetBorrowingBooks(Filter filter)
         {
-            return _bookMemberRepository.GetBorrowingBooks();
+            return _bookMemberRepository.GetBorrowingBooks(filter);
         }
 
         public void ReturnBook(int borrowBookId)

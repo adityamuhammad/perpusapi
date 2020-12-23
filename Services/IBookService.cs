@@ -12,7 +12,7 @@ namespace perpusapi.Services
         void AddBook(Book book);
         void UpdateBook(Book book);
         void DeleteBook(int id);
-        IEnumerable<BorrowingDto> GetBorrowingBooks();
+        IEnumerable<BorrowingDto> GetBorrowingBooks(Filter filter);
         void BorrowBook(BookMember bookMember);
         void ReturnBook(int borrowBookId);
     }

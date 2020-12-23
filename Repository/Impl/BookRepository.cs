@@ -17,18 +17,20 @@ namespace perpusapi.Repository.Impl
 
         public IEnumerable<Book> GetBooks(Filter filter)
         {
-            var filtering = "";
+            var filtering = string.Empty;
             if (!string.IsNullOrEmpty(filter.Search))
             {
-                filtering += " where Title like concat(@search, '%') or Author like concat(@search, '%') ";
+                filtering += " where Title like concat(@Search, '%') or Author like concat(@search, '%') ";
             }
             var books = _databaseConnection.connection.Query<Book>($@"
-                select top 10 
+                select 
                     Id, Title, Author, 
                     PublishedDate, CreatedDate 
                 from Book 
                 {filtering}
-                order by id desc", filter);
+                order by id desc
+                offset ((@Page-1) * @NumOfRows) rows fetch first @NumOfRows rows only
+                ", filter);
             return books;
         }
 

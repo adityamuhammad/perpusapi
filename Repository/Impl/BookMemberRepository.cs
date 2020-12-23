@@ -4,6 +4,7 @@ using Dapper;
 using perpusapi.DatabaseLib;
 using perpusapi.DataModel;
 using perpusapi.Dto;
+using perpusapi.ParamFilter;
 
 namespace perpusapi.Repository.Impl
 {
@@ -15,10 +16,16 @@ namespace perpusapi.Repository.Impl
             _databaseConnection = databaseConnection;
         }
 
-        public IEnumerable<BorrowingDto> GetBorrowingBooks()
+        public IEnumerable<BorrowingDto> GetBorrowingBooks(Filter filter)
         {
-            return _databaseConnection.connection.Query<BorrowingDto>(@"
-                select Top 10 
+            var filtering = string.Empty;
+            if (!string.IsNullOrEmpty(filter.Search))
+            {
+                filtering += " where b.Title like concat(@Search, '%') or b.Author like concat(@search, '%') or m.Name like concat(@search, '%')  ";
+            }
+
+            return _databaseConnection.connection.Query<BorrowingDto>($@"
+                select
                     bb.Id as Id, b.Title as Title, 
                     b.Author as Author, m.Name as BorrowerName,
                     m.Address as BorrowerAddress, m.PhoneNumber as BorrowerPhoneNumber,
@@ -26,7 +33,10 @@ namespace perpusapi.Repository.Impl
                 from BorrowBook bb
                 inner join Book b on bb.BookId = b.Id
                 inner join Member m on bb.MemberId = m.Id
-                "
+                {filtering}
+                order by Id desc
+                offset ((@Page-1) * @NumOfRows) rows fetch first @NumOfRows rows only
+                ", filter
             );
 
         }
